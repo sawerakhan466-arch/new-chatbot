@@ -299,7 +299,7 @@ if user_input:
 
                 response = client.chat.completions.create(
 
-                    model="openai/gpt-oss-120b"
+                    model="openai/gpt-oss-120b",
                     messages=[
                         {
                             "role": "system",
