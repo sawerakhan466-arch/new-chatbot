@@ -2,21 +2,22 @@
 import streamlit as st
 from groq import Groq
 
-# ---------------------------------
+# =========================================================
 # 1. PAGE CONFIGURATION
-# ---------------------------------
+# =========================================================
+
 st.set_page_config(
-    page_title="100era & Kainat | Beauty Chatbot",
-    page_icon="💄",
-    layout="centered"
+    page_title="Kairaé Beauty AI",
+    page_icon="💗",
+    layout="wide"
 )
 
-# ---------------------------------
+# =========================================================
 # 2. CUSTOM CSS
-# ---------------------------------
+# =========================================================
+
 st.markdown("""
 <style>
-
 .stApp {
     background-color: #FCE4EC;
 }
@@ -29,178 +30,521 @@ st.markdown("""
     background-color: #F8BBD0;
 }
 
-h1 {
-    color: #D50000 !important;
-    text-align: center;
-    font-family: sans-serif;
-    font-weight: bold;
-}
-
-h2, h3 {
+h1, h2, h3 {
     color: #AD1457 !important;
 }
 
-.subtitle {
-    text-align: center;
-    font-size: 18px;
-    color: #AD1457;
-}
-
-.description {
-    text-align: center;
-    color: #880E4F;
-    font-size: 15px;
-}
-
-.stChatMessage {
-    background-color: #FFF0F5;
+div[data-testid="stChatMessage"] {
+    background-color: #FFF5F8;
+    border: 1px solid #F3B6CC;
     border-radius: 15px;
-    border: 1px solid #F8BBD0;
-    padding: 10px;
-}
-
-.stChatInput {
-    background-color: white;
 }
 
 .stButton > button {
-    background-color: #E91E63;
+    background-color: #C2185B;
     color: white;
     border-radius: 10px;
     border: none;
-    padding: 10px 20px;
 }
 
 .stButton > button:hover {
-    background-color: #C2185B;
+    background-color: #880E4F;
     color: white;
 }
 
-div[data-testid="stChatInput"] {
-    border-color: #E91E63;
+.stChatInput {
+    border-radius: 15px;
+}
+
+.product-card {
+    background-color: #FFF5F8;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #F3B6CC;
 }
 
 footer {
     visibility: hidden;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
 
-# ---------------------------------
+# =========================================================
 # 3. HEADER
-# ---------------------------------
-st.markdown(
-    "<h1>💄 100era & Kainat 💄</h1>",
-    unsafe_allow_html=True
-)
+# =========================================================
 
 st.markdown(
-    '<p class="subtitle">Your Beauty & Cosmetics Assistant</p>',
-    unsafe_allow_html=True
-)
+    """
+    <div style="text-align:center;">
+        <h1 style="font-family:serif; font-size:50px;">
+            ✨ Kairaé ✨
+        </h1>
 
-st.markdown(
-    '<p class="description">'
-    'Ask questions about makeup, skincare, beauty products, '
-    'and cosmetics. 💗'
-    '</p>',
+        <h3 style="letter-spacing:4px;">
+            BEAUTY AI
+        </h3>
+
+        <p style="color:#AD1457; font-size:18px;">
+            Your Personal Beauty & Cosmetics Assistant
+        </p>
+
+        <p>
+            Discover your beauty. Find your glow. 💗
+        </p>
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
 st.divider()
 
 
-# ---------------------------------
-# 4. SIDEBAR
-# ---------------------------------
+# =========================================================
+# 4. PRODUCT DATABASE
+# =========================================================
+
+PRODUCTS = [
+
+    {
+        "name": "Dermive Oil-Free Moisturizer",
+        "brand": "Jenpharm",
+        "price": 1098,
+        "category": "Moisturizer",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination", "Acne-prone"],
+        "concerns": ["Oiliness", "Acne", "Dehydration"],
+        "description": (
+            "Lightweight moisturizer for daily hydration."
+        ),
+        "quality": "Good everyday skincare option",
+        "image": (
+            "https://jenpharm.com/cdn/shop/files/"
+            "Dermivewash_jpg.jpg?v=1778314684"
+        ),
+        "url": "https://jenpharm.com/products/dermive-oil-free"
+    },
+
+    {
+        "name": "Acne Control Cleanser",
+        "brand": "Derma London",
+        "price": 1080,
+        "category": "Cleanser",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination", "Acne-prone"],
+        "concerns": ["Acne", "Blackheads", "Oiliness"],
+        "description": (
+            "Cleanser designed for acne-prone skin."
+        ),
+        "quality": "Targeted skincare option",
+        "image": (
+            "https://dermalondon.com.pk/cdn/shop/files/"
+            "1.jpg?v=1711016939"
+        ),
+        "url": (
+            "https://dermalondon.com.pk/products/"
+            "acne-control-cleanser-150ml"
+        )
+    },
+
+    {
+        "name": "Acne Control Serum",
+        "brand": "Derma London",
+        "price": 1240,
+        "category": "Serum",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination", "Acne-prone"],
+        "concerns": ["Acne", "Blackheads", "Oiliness"],
+        "description": (
+            "Serum for blemish-prone skin."
+        ),
+        "quality": "Active-ingredient-focused option",
+        "image": (
+            "https://dermalondon.com.pk/cdn/shop/files/"
+            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
+            "?v=1777375582"
+        ),
+        "url": (
+            "https://dermalondon.com.pk/"
+            "collections/acne-pimples"
+        )
+    },
+
+    {
+        "name": "Acne & Oil Control Moisturizer",
+        "brand": "Derma London",
+        "price": 1190,
+        "category": "Moisturizer",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination", "Acne-prone"],
+        "concerns": ["Acne", "Oiliness"],
+        "description": (
+            "Moisturizer designed for oily and acne-prone skin."
+        ),
+        "quality": "Targeted skincare option",
+        "image": (
+            "https://dermalondon.com.pk/cdn/shop/files/"
+            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
+            "?v=1777375582"
+        ),
+        "url": (
+            "https://dermalondon.com.pk/"
+            "collections/acne-pimples"
+        )
+    },
+
+    {
+        "name": "Simple Refreshing Facial Wash",
+        "brand": "Simple",
+        "price": 1630,
+        "category": "Cleanser",
+        "tier": "Mid-range",
+        "skin_types": [
+            "Oily", "Combination", "Sensitive",
+            "Normal", "Dry"
+        ],
+        "concerns": ["Sensitivity", "Oiliness", "Dryness"],
+        "description": (
+            "Gentle daily facial cleanser."
+        ),
+        "quality": "Gentle everyday option",
+        "image": (
+            "https://images.unsplash.com/"
+            "photo-1608248543803-ba4f8c70ae0b"
+            "?auto=format&fit=crop&w=600&q=80"
+        ),
+        "url": (
+            "https://www.cozmetics.pk/"
+            "concerns/oily-acne-prone-skin"
+        )
+    },
+
+    {
+        "name": "Purifying Neem Face Wash",
+        "brand": "Himalaya",
+        "price": 680,
+        "category": "Cleanser",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination"],
+        "concerns": ["Oiliness", "Acne"],
+        "description": (
+            "Affordable neem-based facial cleanser."
+        ),
+        "quality": "Basic budget cleanser",
+        "image": (
+            "https://himalayausa.com/cdn/shop/files/"
+            "4_714ece8d-0028-483d-9a6e-e50b7f5e1656.png"
+            "?v=1770222739&width=1800"
+        ),
+        "url": (
+            "https://www.cozmetics.pk/"
+            "concerns/oily-acne-prone-skin"
+        )
+    },
+
+    {
+        "name": "Super Light Gel Moisturizer",
+        "brand": "Pond's",
+        "price": 1430,
+        "category": "Moisturizer",
+        "tier": "Budget-friendly",
+        "skin_types": ["Oily", "Combination", "Normal"],
+        "concerns": ["Oiliness", "Dehydration"],
+        "description": (
+            "Lightweight gel moisturizer."
+        ),
+        "quality": "Lightweight daily hydration",
+        "image": (
+            "https://highfy.pk/cdn/shop/files/"
+            "3_345886c6-d158-4bb4-bdc8-68da4a03da1f.webp"
+            "?v=1784715502&width=1200"
+        ),
+        "url": (
+            "https://www.cozmetics.pk/"
+            "concerns/oily-acne-prone-skin"
+        )
+    },
+
+    {
+        "name": "Niacinamide 10% + Zinc 1%",
+        "brand": "The Ordinary",
+        "price": 2699,
+        "category": "Serum",
+        "tier": "Mid-range",
+        "skin_types": ["Oily", "Combination"],
+        "concerns": ["Oiliness", "Acne marks"],
+        "description": (
+            "Niacinamide serum for oiliness "
+            "and the appearance of blemishes."
+        ),
+        "quality": "Concentrated active formula",
+        "image": (
+            "https://adminbeauty.hvnet.vn/Upload/Files/"
+            "the-ordinary-niacinamide-10-zinc-1-30ml.jpg"
+        ),
+        "url": (
+            "https://www.cozmetics.pk/"
+            "concerns/oily-acne-prone-skin"
+        )
+    },
+
+    {
+        "name": "Acne Control Kit",
+        "brand": "Derma London",
+        "price": 3370,
+        "category": "Skincare Kit",
+        "tier": "Mid-range",
+        "skin_types": ["Oily", "Combination", "Acne-prone"],
+        "concerns": ["Acne", "Blackheads", "Oiliness"],
+        "description": (
+            "A skincare kit for acne-prone skin."
+        ),
+        "quality": "Multi-product skincare routine",
+        "image": (
+            "https://dermalondon.com.pk/cdn/shop/files/"
+            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
+            "?v=1777375582"
+        ),
+        "url": (
+            "https://dermalondon.com.pk/"
+            "collections/acne-pimples"
+        )
+    }
+]
+
+
+# =========================================================
+# 5. SIDEBAR - USER PROFILE
+# =========================================================
+
 with st.sidebar:
 
-    st.markdown("## 💗 Beauty Corner")
+    st.markdown("## 🌸 Skin Profile")
 
-    st.write(
-        "Welcome to our cosmetics chatbot! "
-        "Ask anything about beauty and makeup."
+    skin_type = st.selectbox(
+        "Select your skin type",
+        [
+            "Oily",
+            "Dry",
+            "Combination",
+            "Normal",
+            "Sensitive",
+            "Acne-prone"
+        ]
     )
 
-    st.markdown("### ✨ Suggested Topics")
+    skin_tone = st.selectbox(
+        "Select your skin tone",
+        [
+            "Fair",
+            "Light",
+            "Medium",
+            "Wheatish",
+            "Tan",
+            "Deep",
+            "Dark",
+            "Not sure"
+        ]
+    )
 
-    st.write("💄 Lipsticks")
-    st.write("🧴 Skincare")
-    st.write("🌸 Moisturizers")
-    st.write("☀️ Sunscreen")
-    st.write("✨ Foundations")
-    st.write("💋 Makeup Tips")
+    concerns = st.multiselect(
+        "Your skin concerns",
+        [
+            "Acne",
+            "Blackheads",
+            "Dark spots",
+            "Oiliness",
+            "Dryness",
+            "Sensitivity",
+            "Uneven skin tone",
+            "Dullness",
+            "Dehydration"
+        ]
+    )
 
-    st.divider()
+    budget = st.selectbox(
+        "Your budget",
+        [
+            "Budget-friendly",
+            "Mid-range",
+            "Premium",
+            "Any budget"
+        ]
+    )
 
-    if st.button("🗑️ Clear Conversation", use_container_width=True):
+    st.markdown("---")
+
+    st.markdown("## 💄 Makeup")
+
+    makeup_interest = st.checkbox(
+        "Show makeup recommendations"
+    )
+
+    st.markdown("---")
+
+    if st.button(
+        "🗑️ Clear Conversation",
+        use_container_width=True
+    ):
 
         st.session_state.messages = []
 
         st.rerun()
 
-    st.markdown("---")
-
-    st.caption("Made with 💗 by 100era & Kainat")
-
-
-# ---------------------------------
-# 5. SYSTEM PROMPT
-# ---------------------------------
-SYSTEM_PROMPT = """
-You are Beauty Assistant, a friendly AI chatbot created by 100era and Kainat.
-
-Your specialization is cosmetics, skincare, makeup, and beauty products.
-
-You can answer questions about:
-
-- Foundations
-- Concealers
-- Primers
-- Lipsticks
-- Mascara
-- Eyeliners
-- Blush
-- Highlighters
-- Face powders
-- Makeup brushes
-- Skincare
-- Cleansers
-- Moisturizers
-- Sunscreen
-- Cosmetic ingredients
-- Skin types
-- Makeup routines
-- Beauty tips
-- Cosmetic product selection
-
-BEHAVIOR RULES:
-
-1. Answer in a friendly and simple way.
-2. Keep answers understandable and informative.
-3. If the user speaks English, reply in English.
-4. If the user speaks Urdu, reply in Urdu.
-5. If the user speaks Roman Urdu, reply in Roman Urdu.
-6. Explain what cosmetic products do and how they are used.
-7. Suggest products according to skin type, needs, and budget.
-8. Do not invent product ingredients, prices, or medical claims.
-9. You are an informational assistant, not a dermatologist.
-10. If someone describes a serious skin reaction or medical issue,
-    recommend consulting a qualified dermatologist.
-11. Do not claim a product is guaranteed to work.
-12. If a question is unrelated to cosmetics or beauty,
-    politely explain that you are a cosmetics chatbot
-    and redirect the conversation toward beauty-related topics.
-13. Use emojis occasionally but do not overuse them.
-14. Be helpful and conversational.
-"""
+    st.markdown(
+        """
+        <div style="text-align:center;">
+            <b>Kairaé Beauty AI 💗</b>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
-# ---------------------------------
-# 6. API CLIENT
-# ---------------------------------
+# =========================================================
+# 6. PRODUCT FILTERING
+# =========================================================
+
+def recommend_products(
+    skin_type,
+    concerns,
+    budget
+):
+
+    recommendations = []
+
+    for product in PRODUCTS:
+
+        # Skin type matching
+        skin_match = (
+            skin_type in product["skin_types"]
+        )
+
+        # Concern matching
+        if concerns:
+
+            concern_match = any(
+                concern in product["concerns"]
+                for concern in concerns
+            )
+
+        else:
+
+            concern_match = True
+
+        # Budget matching
+        if budget == "Budget-friendly":
+
+            budget_match = product["price"] <= 1500
+
+        elif budget == "Mid-range":
+
+            budget_match = (
+                1500 < product["price"] <= 4000
+            )
+
+        elif budget == "Premium":
+
+            budget_match = product["price"] > 4000
+
+        else:
+
+            budget_match = True
+
+        if skin_match and concern_match and budget_match:
+
+            recommendations.append(product)
+
+    return recommendations
+
+
+# =========================================================
+# 7. PRODUCT DISPLAY
+# =========================================================
+
+def display_products(products):
+
+    if not products:
+
+        st.warning(
+            "No products found for your selected profile. "
+            "Try changing your skin concerns or budget."
+        )
+
+        return
+
+    columns = st.columns(3)
+
+    for index, product in enumerate(products):
+
+        with columns[index % 3]:
+
+            with st.container(border=True):
+
+                # Product image
+                st.image(
+                    product["image"],
+                    use_container_width=True
+                )
+
+                st.caption(product["brand"])
+
+                st.subheader(product["name"])
+
+                st.markdown(
+                    f"### Rs. {product['price']:,}"
+                )
+
+                st.success(product["tier"])
+
+                st.write(product["description"])
+
+                st.write(
+                    f"**Category:** {product['category']}"
+                )
+
+                st.write(
+                    f"**Quality:** {product['quality']}"
+                )
+
+                st.write(
+                    "**Suitable for:** "
+                    + ", ".join(product["skin_types"])
+                )
+
+                st.link_button(
+                    "🛍️ View Product",
+                    product["url"],
+                    use_container_width=True
+                )
+
+
+# =========================================================
+# 8. PRODUCT RECOMMENDATIONS
+# =========================================================
+
+st.markdown("## 🌷 Recommended Products")
+
+st.caption(
+    "Recommendations based on your selected skin type, "
+    "concerns, and budget."
+)
+
+recommended_products = recommend_products(
+    skin_type,
+    concerns,
+    budget
+)
+
+display_products(recommended_products)
+
+st.divider()
+
+
+# =========================================================
+# 9. GROQ API
+# =========================================================
+
 try:
 
     client = Groq(
@@ -217,46 +561,145 @@ except Exception:
     st.stop()
 
 
-# ---------------------------------
-# 7. INITIALIZE CHAT HISTORY
-# ---------------------------------
+# =========================================================
+# 10. SYSTEM PROMPT
+# =========================================================
+
+SYSTEM_PROMPT = f"""
+You are Kairaé, an intelligent and friendly
+AI beauty and cosmetics assistant.
+
+You specialize in Pakistani skincare,
+cosmetics, makeup, and beauty products.
+
+USER PROFILE:
+
+Skin type: {skin_type}
+Skin tone: {skin_tone}
+Skin concerns: {concerns}
+Budget: {budget}
+Interested in makeup: {makeup_interest}
+
+PRODUCT DATABASE:
+
+{PRODUCTS}
+
+INSTRUCTIONS:
+
+1. Recommend products according to the user's skin type,
+   concerns, skin tone, and budget.
+
+2. Prioritize Pakistani products and products
+   available in Pakistan.
+
+3. Explain why each recommended product is suitable.
+
+4. For oily and acne-prone skin:
+   Suggest gentle cleansers, lightweight moisturizers,
+   and suitable acne-care ingredients.
+
+5. For dry skin:
+   Suggest hydrating cleansers and moisturizers.
+
+6. For sensitive skin:
+   Suggest gentle products and patch testing.
+
+7. Skin tone is important for foundation, concealer,
+   blush, and lipstick recommendations.
+   Do not use skin tone to recommend skincare.
+
+8. Suggest budget-friendly products when the user
+   has selected a low budget.
+
+9. Categorize products as budget-friendly,
+   mid-range, or premium.
+
+10. Never call a cheap product low quality
+    simply because of its price.
+
+11. Do not invent product prices or ingredients.
+
+12. The product prices in the database are approximate.
+    Explain that prices can change.
+
+13. Recommend products from the provided database
+    when possible.
+
+14. Do not claim that products cure acne or skin diseases.
+
+15. Do not diagnose medical conditions.
+
+16. Recommend a dermatologist for severe,
+    painful, persistent acne or skin reactions.
+
+17. Keep answers friendly, clear, and easy to understand.
+
+18. Reply in the language used by the user:
+    English, Urdu, or Roman Urdu.
+
+19. When creating skincare routines,
+    separate morning and night routines.
+
+20. Avoid recommending too many active ingredients
+    at the same time.
+
+21. Always encourage patch testing new products.
+
+22. If a question is unrelated to cosmetics,
+    politely redirect the user to beauty-related topics.
+"""
+
+
+# =========================================================
+# 11. INITIALIZE CHAT HISTORY
+# =========================================================
+
 if "messages" not in st.session_state:
 
     st.session_state.messages = []
 
 
-# ---------------------------------
-# 8. WELCOME MESSAGE
-# ---------------------------------
+# =========================================================
+# 12. WELCOME SCREEN
+# =========================================================
+
 if len(st.session_state.messages) == 0:
 
-    st.markdown("### 🌸 Welcome to Beauty Assistant!")
+    st.markdown("## 💗 Welcome to Kairaé!")
 
-    st.info(
-        "You can ask me anything about cosmetics, "
-        "makeup, skincare, or beauty products."
+    st.write(
+        "Your personal beauty assistant is here "
+        "to help you discover skincare, makeup, "
+        "and products suitable for your skin."
     )
-
-    st.markdown("#### Try asking:")
 
     col1, col2 = st.columns(2)
 
     with col1:
 
-        st.markdown("💄 Best lipstick for dry lips")
+        st.info(
+            "🌸 What products are best for oily skin?"
+        )
 
-        st.markdown("✨ What does a primer do?")
+        st.info(
+            "💄 Which foundation suits wheatish skin?"
+        )
 
     with col2:
 
-        st.markdown("🌸 Skincare routine for oily skin")
+        st.info(
+            "✨ Suggest a skincare routine for acne."
+        )
 
-        st.markdown("☀️ Why should I use sunscreen?")
+        st.info(
+            "💗 Recommend affordable Pakistani products."
+        )
 
 
-# ---------------------------------
-# 9. DISPLAY CHAT HISTORY
-# ---------------------------------
+# =========================================================
+# 13. DISPLAY CHAT HISTORY
+# =========================================================
+
 for message in st.session_state.messages:
 
     with st.chat_message(message["role"]):
@@ -264,17 +707,19 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 
-# ---------------------------------
-# 10. USER INPUT
-# ---------------------------------
+# =========================================================
+# 14. CHAT INPUT
+# =========================================================
+
 user_input = st.chat_input(
-    "Ask me anything about cosmetics... 💗"
+    "Ask Kairaé about beauty, skincare, or makeup... 💗"
 )
 
 
-# ---------------------------------
-# 11. CHAT RESPONSE
-# ---------------------------------
+# =========================================================
+# 15. AI CHAT
+# =========================================================
+
 if user_input:
 
     # Display user message
@@ -290,16 +735,17 @@ if user_input:
         }
     )
 
-    # Generate AI response
+    # Generate response
     with st.chat_message("assistant"):
 
-        with st.spinner("Beauty Assistant is thinking... 💗"):
+        with st.spinner("Kairaé is thinking... 🌸"):
 
             try:
 
                 response = client.chat.completions.create(
 
                     model="openai/gpt-oss-120b",
+
                     messages=[
                         {
                             "role": "system",
@@ -308,16 +754,19 @@ if user_input:
                         *st.session_state.messages
                     ],
 
-                    temperature=0.7,
+                    temperature=0.5,
 
-                    max_tokens=800
+                    max_tokens=1000
                 )
 
-                answer = response.choices[0].message.content
+                answer = (
+                    response.choices[0]
+                    .message.content
+                )
 
                 st.markdown(answer)
 
-                # Save assistant response
+                # Save assistant message
                 st.session_state.messages.append(
                     {
                         "role": "assistant",
@@ -325,24 +774,33 @@ if user_input:
                     }
                 )
 
-            except Exception as e:
+            except Exception as error:
 
                 st.error(
-                    f"Something went wrong: {e}"
+                    f"Something went wrong: {error}"
                 )
 
 
-# ---------------------------------
-# 12. FOOTER
-# ---------------------------------
+# =========================================================
+# 16. FOOTER
+# =========================================================
+
 st.markdown("---")
 
 st.markdown(
     """
-    <div style="text-align:center; color:#C62828;">
-        <b>💗 100era & Kainat 💗</b><br>
-        Beauty & Cosmetics Chatbot<br>
-        Powered by Groq AI
+    <div style="text-align:center; padding:15px;">
+        <h3 style="color:#AD1457;">
+            ✨ Kairaé Beauty AI ✨
+        </h3>
+
+        <p style="color:#AD1457;">
+            Your beauty. Your confidence. Your glow. 💗
+        </p>
+
+        <p style="font-size:13px;">
+            AI-powered cosmetics and skincare assistant
+        </p>
     </div>
     """,
     unsafe_allow_html=True
