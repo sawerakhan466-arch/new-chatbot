@@ -1,4 +1,3 @@
-
 import streamlit as st
 from groq import Groq
 
@@ -74,28 +73,27 @@ footer {
 # 3. HEADER
 # =========================================================
 
-st.markdown(
-    """
-    <div style="text-align:center;">
-        <h1 style="font-family:serif; font-size:50px;">
-            ✨ Kairaé ✨
-        </h1>
+st.markdown("""
+<div style="text-align:center;">
 
-        <h3 style="letter-spacing:4px;">
-            BEAUTY AI
-        </h3>
+    <h1 style="font-family:serif; font-size:50px;">
+        ✨ Kairaé ✨
+    </h1>
 
-        <p style="color:#AD1457; font-size:18px;">
-            Your Personal Beauty & Cosmetics Assistant
-        </p>
+    <h3 style="letter-spacing:4px; color:#AD1457;">
+        BEAUTY AI
+    </h3>
 
-        <p>
-            Discover your beauty. Find your glow. 💗
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    <p style="color:#AD1457; font-size:18px;">
+        Your Personal Beauty & Cosmetics Assistant
+    </p>
+
+    <p>
+        Discover your beauty. Find your glow. 💗
+    </p>
+
+</div>
+""", unsafe_allow_html=True)
 
 st.divider()
 
@@ -114,9 +112,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination", "Acne-prone"],
         "concerns": ["Oiliness", "Acne", "Dehydration"],
-        "description": (
-            "Lightweight moisturizer for daily hydration."
-        ),
+        "description": "Lightweight moisturizer for daily hydration.",
         "quality": "Good everyday skincare option",
         "image": (
             "https://jenpharm.com/cdn/shop/files/"
@@ -133,9 +129,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination", "Acne-prone"],
         "concerns": ["Acne", "Blackheads", "Oiliness"],
-        "description": (
-            "Cleanser designed for acne-prone skin."
-        ),
+        "description": "Cleanser designed for acne-prone skin.",
         "quality": "Targeted skincare option",
         "image": (
             "https://dermalondon.com.pk/cdn/shop/files/"
@@ -155,9 +149,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination", "Acne-prone"],
         "concerns": ["Acne", "Blackheads", "Oiliness"],
-        "description": (
-            "Serum for blemish-prone skin."
-        ),
+        "description": "Serum for blemish-prone skin.",
         "quality": "Active-ingredient-focused option",
         "image": (
             "https://dermalondon.com.pk/cdn/shop/files/"
@@ -178,9 +170,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination", "Acne-prone"],
         "concerns": ["Acne", "Oiliness"],
-        "description": (
-            "Moisturizer designed for oily and acne-prone skin."
-        ),
+        "description": "Moisturizer designed for oily and acne-prone skin.",
         "quality": "Targeted skincare option",
         "image": (
             "https://dermalondon.com.pk/cdn/shop/files/"
@@ -204,9 +194,7 @@ PRODUCTS = [
             "Normal", "Dry"
         ],
         "concerns": ["Sensitivity", "Oiliness", "Dryness"],
-        "description": (
-            "Gentle daily facial cleanser."
-        ),
+        "description": "Gentle daily facial cleanser.",
         "quality": "Gentle everyday option",
         "image": (
             "https://images.unsplash.com/"
@@ -227,9 +215,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination"],
         "concerns": ["Oiliness", "Acne"],
-        "description": (
-            "Affordable neem-based facial cleanser."
-        ),
+        "description": "Affordable neem-based facial cleanser.",
         "quality": "Basic budget cleanser",
         "image": (
             "https://himalayausa.com/cdn/shop/files/"
@@ -250,9 +236,7 @@ PRODUCTS = [
         "tier": "Budget-friendly",
         "skin_types": ["Oily", "Combination", "Normal"],
         "concerns": ["Oiliness", "Dehydration"],
-        "description": (
-            "Lightweight gel moisturizer."
-        ),
+        "description": "Lightweight gel moisturizer.",
         "quality": "Lightweight daily hydration",
         "image": (
             "https://highfy.pk/cdn/shop/files/"
@@ -296,9 +280,7 @@ PRODUCTS = [
         "tier": "Mid-range",
         "skin_types": ["Oily", "Combination", "Acne-prone"],
         "concerns": ["Acne", "Blackheads", "Oiliness"],
-        "description": (
-            "A skincare kit for acne-prone skin."
-        ),
+        "description": "A skincare kit for acne-prone skin.",
         "quality": "Multi-product skincare routine",
         "image": (
             "https://dermalondon.com.pk/cdn/shop/files/"
@@ -382,77 +364,51 @@ with st.sidebar:
 
     st.markdown("---")
 
-    if st.button(
-        "🗑️ Clear Conversation",
-        use_container_width=True
-    ):
+    if st.button("🗑️ Clear Conversation", use_container_width=True):
 
         st.session_state.messages = []
-
         st.rerun()
 
-    st.markdown(
-        """
-        <div style="text-align:center;">
-            <b>Kairaé Beauty AI 💗</b>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <div style="text-align:center;">
+        <b>Kairaé Beauty AI 💗</b>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # =========================================================
 # 6. PRODUCT FILTERING
 # =========================================================
 
-def recommend_products(
-    skin_type,
-    concerns,
-    budget
-):
+def recommend_products(skin_type, concerns, budget):
 
     recommendations = []
 
     for product in PRODUCTS:
 
-        # Skin type matching
-        skin_match = (
-            skin_type in product["skin_types"]
-        )
+        skin_match = skin_type in product["skin_types"]
 
-        # Concern matching
         if concerns:
-
             concern_match = any(
                 concern in product["concerns"]
                 for concern in concerns
             )
-
         else:
-
             concern_match = True
 
-        # Budget matching
         if budget == "Budget-friendly":
-
             budget_match = product["price"] <= 1500
 
         elif budget == "Mid-range":
-
-            budget_match = (
-                1500 < product["price"] <= 4000
-            )
+            budget_match = 1500 < product["price"] <= 4000
 
         elif budget == "Premium":
-
             budget_match = product["price"] > 4000
 
         else:
-
             budget_match = True
 
         if skin_match and concern_match and budget_match:
-
             recommendations.append(product)
 
     return recommendations
@@ -470,7 +426,6 @@ def display_products(products):
             "No products found for your selected profile. "
             "Try changing your skin concerns or budget."
         )
-
         return
 
     columns = st.columns(3)
@@ -481,7 +436,6 @@ def display_products(products):
 
             with st.container(border=True):
 
-                # Product image
                 st.image(
                     product["image"],
                     use_container_width=True
@@ -655,7 +609,6 @@ INSTRUCTIONS:
 # =========================================================
 
 if "messages" not in st.session_state:
-
     st.session_state.messages = []
 
 
@@ -703,7 +656,6 @@ if len(st.session_state.messages) == 0:
 for message in st.session_state.messages:
 
     with st.chat_message(message["role"]):
-
         st.markdown(message["content"])
 
 
@@ -722,12 +674,9 @@ user_input = st.chat_input(
 
 if user_input:
 
-    # Display user message
     with st.chat_message("user"):
-
         st.markdown(user_input)
 
-    # Save user message
     st.session_state.messages.append(
         {
             "role": "user",
@@ -735,7 +684,6 @@ if user_input:
         }
     )
 
-    # Generate response
     with st.chat_message("assistant"):
 
         with st.spinner("Kairaé is thinking... 🌸"):
@@ -766,7 +714,6 @@ if user_input:
 
                 st.markdown(answer)
 
-                # Save assistant message
                 st.session_state.messages.append(
                     {
                         "role": "assistant",
@@ -787,21 +734,20 @@ if user_input:
 
 st.markdown("---")
 
-st.markdown(
-    """
-    <div style="text-align:center; padding:15px;">
-        <h3 style="color:#AD1457;">
-            ✨ Kairaé Beauty AI ✨
-        </h3>
+st.markdown("""
+<div style="text-align:center; padding:15px;">
 
-        <p style="color:#AD1457;">
-            Your beauty. Your confidence. Your glow. 💗
-        </p>
+    <h3 style="color:#AD1457;">
+        ✨ Kairaé Beauty AI ✨
+    </h3>
 
-        <p style="font-size:13px;">
-            AI-powered cosmetics and skincare assistant
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    <p style="color:#AD1457;">
+        Your beauty. Your confidence. Your glow. 💗
+    </p>
+
+    <p style="font-size:13px;">
+        AI-powered cosmetics and skincare assistant
+    </p>
+
+</div>
+""", unsafe_allow_html=True)
