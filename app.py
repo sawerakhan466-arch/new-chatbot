@@ -1,3 +1,4 @@
+
 import streamlit as st
 from groq import Groq
 
@@ -55,13 +56,6 @@ div[data-testid="stChatMessage"] {
     border-radius: 15px;
 }
 
-.product-card {
-    background-color: #FFF5F8;
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px solid #F3B6CC;
-}
-
 footer {
     visibility: hidden;
 }
@@ -70,11 +64,6 @@ footer {
 
 
 # =========================================================
-# 3. HEADER
-# =========================================================
-
-
-  # =========================================================
 # 3. HEADER
 # =========================================================
 
@@ -119,10 +108,7 @@ PRODUCTS = [
         "concerns": ["Oiliness", "Acne", "Dehydration"],
         "description": "Lightweight moisturizer for daily hydration.",
         "quality": "Good everyday skincare option",
-        "image": (
-            "https://jenpharm.com/cdn/shop/files/"
-            "Dermivewash_jpg.jpg?v=1778314684"
-        ),
+        "image": "https://jenpharm.com/cdn/shop/files/Dermivewash_jpg.jpg?v=1778314684",
         "url": "https://jenpharm.com/products/dermive-oil-free"
     },
 
@@ -136,14 +122,8 @@ PRODUCTS = [
         "concerns": ["Acne", "Blackheads", "Oiliness"],
         "description": "Cleanser designed for acne-prone skin.",
         "quality": "Targeted skincare option",
-        "image": (
-            "https://dermalondon.com.pk/cdn/shop/files/"
-            "1.jpg?v=1711016939"
-        ),
-        "url": (
-            "https://dermalondon.com.pk/products/"
-            "acne-control-cleanser-150ml"
-        )
+        "image": "https://dermalondon.com.pk/cdn/shop/files/1.jpg?v=1711016939",
+        "url": "https://dermalondon.com.pk/products/acne-control-cleanser-150ml"
     },
 
     {
@@ -156,15 +136,8 @@ PRODUCTS = [
         "concerns": ["Acne", "Blackheads", "Oiliness"],
         "description": "Serum for blemish-prone skin.",
         "quality": "Active-ingredient-focused option",
-        "image": (
-            "https://dermalondon.com.pk/cdn/shop/files/"
-            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
-            "?v=1777375582"
-        ),
-        "url": (
-            "https://dermalondon.com.pk/"
-            "collections/acne-pimples"
-        )
+        "image": "https://dermalondon.com.pk/cdn/shop/files/1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg?v=1777375582",
+        "url": "https://dermalondon.com.pk/collections/acne-pimples"
     },
 
     {
@@ -177,15 +150,8 @@ PRODUCTS = [
         "concerns": ["Acne", "Oiliness"],
         "description": "Moisturizer designed for oily and acne-prone skin.",
         "quality": "Targeted skincare option",
-        "image": (
-            "https://dermalondon.com.pk/cdn/shop/files/"
-            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
-            "?v=1777375582"
-        ),
-        "url": (
-            "https://dermalondon.com.pk/"
-            "collections/acne-pimples"
-        )
+        "image": "https://dermalondon.com.pk/cdn/shop/files/1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg?v=1777375582",
+        "url": "https://dermalondon.com.pk/collections/acne-pimples"
     },
 
     {
@@ -194,22 +160,12 @@ PRODUCTS = [
         "price": 1630,
         "category": "Cleanser",
         "tier": "Mid-range",
-        "skin_types": [
-            "Oily", "Combination", "Sensitive",
-            "Normal", "Dry"
-        ],
+        "skin_types": ["Oily", "Combination", "Sensitive", "Normal", "Dry"],
         "concerns": ["Sensitivity", "Oiliness", "Dryness"],
         "description": "Gentle daily facial cleanser.",
         "quality": "Gentle everyday option",
-        "image": (
-            "https://images.unsplash.com/"
-            "photo-1608248543803-ba4f8c70ae0b"
-            "?auto=format&fit=crop&w=600&q=80"
-        ),
-        "url": (
-            "https://www.cozmetics.pk/"
-            "concerns/oily-acne-prone-skin"
-        )
+        "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80",
+        "url": "https://www.cozmetics.pk/concerns/oily-acne-prone-skin"
     },
 
     {
@@ -222,15 +178,8 @@ PRODUCTS = [
         "concerns": ["Oiliness", "Acne"],
         "description": "Affordable neem-based facial cleanser.",
         "quality": "Basic budget cleanser",
-        "image": (
-            "https://himalayausa.com/cdn/shop/files/"
-            "4_714ece8d-0028-483d-9a6e-e50b7f5e1656.png"
-            "?v=1770222739&width=1800"
-        ),
-        "url": (
-            "https://www.cozmetics.pk/"
-            "concerns/oily-acne-prone-skin"
-        )
+        "image": "https://himalayausa.com/cdn/shop/files/4_714ece8d-0028-483d-9a6e-e50b7f5e1656.png?v=1770222739&width=1800",
+        "url": "https://www.cozmetics.pk/concerns/oily-acne-prone-skin"
     },
 
     {
@@ -243,15 +192,8 @@ PRODUCTS = [
         "concerns": ["Oiliness", "Dehydration"],
         "description": "Lightweight gel moisturizer.",
         "quality": "Lightweight daily hydration",
-        "image": (
-            "https://highfy.pk/cdn/shop/files/"
-            "3_345886c6-d158-4bb4-bdc8-68da4a03da1f.webp"
-            "?v=1784715502&width=1200"
-        ),
-        "url": (
-            "https://www.cozmetics.pk/"
-            "concerns/oily-acne-prone-skin"
-        )
+        "image": "https://highfy.pk/cdn/shop/files/3_345886c6-d158-4bb4-bdc8-68da4a03da1f.webp?v=1784715502&width=1200",
+        "url": "https://www.cozmetics.pk/concerns/oily-acne-prone-skin"
     },
 
     {
@@ -262,19 +204,10 @@ PRODUCTS = [
         "tier": "Mid-range",
         "skin_types": ["Oily", "Combination"],
         "concerns": ["Oiliness", "Acne marks"],
-        "description": (
-            "Niacinamide serum for oiliness "
-            "and the appearance of blemishes."
-        ),
+        "description": "Niacinamide serum for oiliness and the appearance of blemishes.",
         "quality": "Concentrated active formula",
-        "image": (
-            "https://adminbeauty.hvnet.vn/Upload/Files/"
-            "the-ordinary-niacinamide-10-zinc-1-30ml.jpg"
-        ),
-        "url": (
-            "https://www.cozmetics.pk/"
-            "concerns/oily-acne-prone-skin"
-        )
+        "image": "https://adminbeauty.hvnet.vn/Upload/Files/the-ordinary-niacinamide-10-zinc-1-30ml.jpg",
+        "url": "https://www.cozmetics.pk/concerns/oily-acne-prone-skin"
     },
 
     {
@@ -287,90 +220,133 @@ PRODUCTS = [
         "concerns": ["Acne", "Blackheads", "Oiliness"],
         "description": "A skincare kit for acne-prone skin.",
         "quality": "Multi-product skincare routine",
-        "image": (
-            "https://dermalondon.com.pk/cdn/shop/files/"
-            "1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg"
-            "?v=1777375582"
-        ),
-        "url": (
-            "https://dermalondon.com.pk/"
-            "collections/acne-pimples"
-        )
+        "image": "https://dermalondon.com.pk/cdn/shop/files/1_dbf13df1-bd7f-433b-aa78-f3e775b1ad60.jpg?v=1777375582",
+        "url": "https://dermalondon.com.pk/collections/acne-pimples"
     }
 ]
 
 
 # =========================================================
-# 5. SIDEBAR - USER PROFILE
+# 5. INITIALIZE SESSION STATE
+# =========================================================
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "applied_profile" not in st.session_state:
+    st.session_state.applied_profile = {
+        "skin_type": "Oily",
+        "skin_tone": "Not sure",
+        "concerns": [],
+        "budget": "Any budget",
+        "makeup_interest": False
+    }
+
+
+# =========================================================
+# 6. SIDEBAR - USER PROFILE
 # =========================================================
 
 with st.sidebar:
 
     st.markdown("## 🌸 Skin Profile")
 
-    skin_type = st.selectbox(
-        "Select your skin type",
-        [
-            "Oily",
-            "Dry",
-            "Combination",
-            "Normal",
-            "Sensitive",
-            "Acne-prone"
-        ]
+    st.caption(
+        "Select your preferences and press Apply "
+        "to get personalized recommendations."
     )
 
-    skin_tone = st.selectbox(
-        "Select your skin tone",
-        [
-            "Fair",
-            "Light",
-            "Medium",
-            "Wheatish",
-            "Tan",
-            "Deep",
-            "Dark",
-            "Not sure"
-        ]
-    )
+    skin_types = [
+        "Oily", "Dry", "Combination",
+        "Normal", "Sensitive", "Acne-prone"
+    ]
 
-    concerns = st.multiselect(
-        "Your skin concerns",
-        [
-            "Acne",
-            "Blackheads",
-            "Dark spots",
-            "Oiliness",
-            "Dryness",
-            "Sensitivity",
-            "Uneven skin tone",
-            "Dullness",
-            "Dehydration"
-        ]
-    )
+    skin_tones = [
+        "Fair", "Light", "Medium", "Wheatish",
+        "Tan", "Deep", "Dark", "Not sure"
+    ]
 
-    budget = st.selectbox(
-        "Your budget",
-        [
-            "Budget-friendly",
-            "Mid-range",
-            "Premium",
-            "Any budget"
-        ]
-    )
+    budgets = [
+        "Budget-friendly", "Mid-range",
+        "Premium", "Any budget"
+    ]
+
+    with st.form("skin_profile_form"):
+
+        selected_skin_type = st.selectbox(
+            "Select your skin type",
+            skin_types,
+            index=skin_types.index(
+                st.session_state.applied_profile["skin_type"]
+            )
+        )
+
+        selected_skin_tone = st.selectbox(
+            "Select your skin tone",
+            skin_tones,
+            index=skin_tones.index(
+                st.session_state.applied_profile["skin_tone"]
+            )
+        )
+
+        selected_concerns = st.multiselect(
+            "Your skin concerns",
+            [
+                "Acne", "Blackheads", "Dark spots",
+                "Oiliness", "Dryness", "Sensitivity",
+                "Uneven skin tone", "Dullness", "Dehydration"
+            ],
+            default=st.session_state.applied_profile["concerns"]
+        )
+
+        selected_budget = st.selectbox(
+            "Your budget",
+            budgets,
+            index=budgets.index(
+                st.session_state.applied_profile["budget"]
+            )
+        )
+
+        st.markdown("---")
+        st.markdown("## 💄 Makeup")
+
+        selected_makeup_interest = st.checkbox(
+            "Show makeup recommendations",
+            value=st.session_state.applied_profile["makeup_interest"]
+        )
+
+        apply_preferences = st.form_submit_button(
+            "✅ Apply My Preferences",
+            use_container_width=True
+        )
+
+    if apply_preferences:
+
+        st.session_state.applied_profile = {
+            "skin_type": selected_skin_type,
+            "skin_tone": selected_skin_tone,
+            "concerns": selected_concerns,
+            "budget": selected_budget,
+            "makeup_interest": selected_makeup_interest
+        }
+
+        st.success("Your preferences have been applied!")
+        st.rerun()
+
+    # Use applied preferences throughout the app.
+
+    skin_type = st.session_state.applied_profile["skin_type"]
+    skin_tone = st.session_state.applied_profile["skin_tone"]
+    concerns = st.session_state.applied_profile["concerns"]
+    budget = st.session_state.applied_profile["budget"]
+    makeup_interest = st.session_state.applied_profile["makeup_interest"]
 
     st.markdown("---")
 
-    st.markdown("## 💄 Makeup")
-
-    makeup_interest = st.checkbox(
-        "Show makeup recommendations"
-    )
-
-    st.markdown("---")
-
-    if st.button("🗑️ Clear Conversation", use_container_width=True):
-
+    if st.button(
+        "🗑️ Clear Conversation",
+        use_container_width=True
+    ):
         st.session_state.messages = []
         st.rerun()
 
@@ -382,45 +358,67 @@ with st.sidebar:
 
 
 # =========================================================
-# 6. PRODUCT FILTERING
+# 7. PRODUCT FILTERING
 # =========================================================
 
 def recommend_products(skin_type, concerns, budget):
 
-    recommendations = []
+    # First find all products suitable for skin type.
 
-    for product in PRODUCTS:
+    skin_matches = [
+        product for product in PRODUCTS
+        if skin_type in product["skin_types"]
+    ]
 
-        skin_match = skin_type in product["skin_types"]
+    # Sort products according to selected skin concerns.
 
-        if concerns:
-            concern_match = any(
+    if concerns:
+
+        skin_matches.sort(
+            key=lambda product: not any(
                 concern in product["concerns"]
                 for concern in concerns
             )
-        else:
-            concern_match = True
+        )
 
-        if budget == "Budget-friendly":
-            budget_match = product["price"] <= 1500
+    # Filter according to budget.
 
-        elif budget == "Mid-range":
-            budget_match = 1500 < product["price"] <= 4000
+    if budget == "Budget-friendly":
 
-        elif budget == "Premium":
-            budget_match = product["price"] > 4000
+        budget_matches = [
+            p for p in skin_matches
+            if p["price"] <= 1500
+        ]
 
-        else:
-            budget_match = True
+    elif budget == "Mid-range":
 
-        if skin_match and concern_match and budget_match:
-            recommendations.append(product)
+        budget_matches = [
+            p for p in skin_matches
+            if 1500 < p["price"] <= 4000
+        ]
 
-    return recommendations
+    elif budget == "Premium":
+
+        budget_matches = [
+            p for p in skin_matches
+            if p["price"] > 4000
+        ]
+
+    else:
+
+        budget_matches = skin_matches
+
+    # If no product matches the budget,
+    # show other products matching the skin type.
+
+    if budget_matches:
+        return budget_matches
+
+    return skin_matches
 
 
 # =========================================================
-# 7. PRODUCT DISPLAY
+# 8. PRODUCT DISPLAY
 # =========================================================
 
 def display_products(products):
@@ -428,9 +426,10 @@ def display_products(products):
     if not products:
 
         st.warning(
-            "No products found for your selected profile. "
-            "Try changing your skin concerns or budget."
+            "No products are currently available "
+            "for this skin type in our product database."
         )
+
         return
 
     columns = st.columns(3)
@@ -479,13 +478,13 @@ def display_products(products):
 
 
 # =========================================================
-# 8. PRODUCT RECOMMENDATIONS
+# 9. PRODUCT RECOMMENDATIONS
 # =========================================================
 
 st.markdown("## 🌷 Recommended Products")
 
 st.caption(
-    "Recommendations based on your selected skin type, "
+    "Recommendations based on your applied skin type, "
     "concerns, and budget."
 )
 
@@ -495,13 +494,41 @@ recommended_products = recommend_products(
     budget
 )
 
+if recommended_products and budget != "Any budget":
+
+    if budget == "Budget-friendly":
+        in_budget = any(
+            p["price"] <= 1500
+            for p in recommended_products
+        )
+
+    elif budget == "Mid-range":
+        in_budget = any(
+            1500 < p["price"] <= 4000
+            for p in recommended_products
+        )
+
+    else:
+        in_budget = any(
+            p["price"] > 4000
+            for p in recommended_products
+        )
+
+    if not in_budget:
+
+        st.info(
+            "No listed products match your selected budget "
+            "for this skin type. Showing other products "
+            "that match your skin type instead."
+        )
+
 display_products(recommended_products)
 
 st.divider()
 
 
 # =========================================================
-# 9. GROQ API
+# 10. GROQ API
 # =========================================================
 
 try:
@@ -521,7 +548,7 @@ except Exception:
 
 
 # =========================================================
-# 10. SYSTEM PROMPT
+# 11. SYSTEM PROMPT
 # =========================================================
 
 SYSTEM_PROMPT = f"""
@@ -558,7 +585,7 @@ INSTRUCTIONS:
    and suitable acne-care ingredients.
 
 5. For dry skin:
-   Suggest hydrating cleansers and moisturizers.
+   Suggest gentle cleansers and hydrating moisturizers.
 
 6. For sensitive skin:
    Suggest gentle products and patch testing.
@@ -578,11 +605,11 @@ INSTRUCTIONS:
 
 11. Do not invent product prices or ingredients.
 
-12. The product prices in the database are approximate.
+12. Product prices in the database are approximate.
     Explain that prices can change.
 
 13. Recommend products from the provided database
-    when possible.
+    whenever possible.
 
 14. Do not claim that products cure acne or skin diseases.
 
@@ -606,15 +633,34 @@ INSTRUCTIONS:
 
 22. If a question is unrelated to cosmetics,
     politely redirect the user to beauty-related topics.
+
+23. When recommending products from the database,
+    ALWAYS include their exact product names.
+
+24. When the user asks for product recommendations
+    or product comparisons, show a Markdown table.
+
+25. The table must have these columns:
+
+    Product Name | Brand | Approximate Price (PKR) |
+    Why It May Suit the User
+
+26. Use exact product names, brands, and prices
+    from the database only.
+
+27. Include the product URL as a clickable link
+    when appropriate.
+
+28. Never invent products, prices, ingredients,
+    or product links.
+
+29. If no database product fits the selected skin type,
+    explain this honestly and provide general
+    ingredient guidance instead of inventing products.
+
+30. Do not recommend a product just because it is cheap.
+    Explain its suitability based on the available information.
 """
-
-
-# =========================================================
-# 11. INITIALIZE CHAT HISTORY
-# =========================================================
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
 
 
 # =========================================================
@@ -661,6 +707,7 @@ if len(st.session_state.messages) == 0:
 for message in st.session_state.messages:
 
     with st.chat_message(message["role"]):
+
         st.markdown(message["content"])
 
 
@@ -680,6 +727,7 @@ user_input = st.chat_input(
 if user_input:
 
     with st.chat_message("user"):
+
         st.markdown(user_input)
 
     st.session_state.messages.append(
@@ -732,10 +780,6 @@ if user_input:
                     f"Something went wrong: {error}"
                 )
 
-
-# =========================================================
-# 16. FOOTER
-# =========================================================
 
 # =========================================================
 # 16. FOOTER
