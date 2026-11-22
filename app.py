@@ -73,10 +73,15 @@ footer {
 # 3. HEADER
 # =========================================================
 
-st.markdown("""
+
+  # =========================================================
+# 3. HEADER
+# =========================================================
+
+st.html("""
 <div style="text-align:center;">
 
-    <h1 style="font-family:serif; font-size:50px;">
+    <h1 style="font-family:serif; font-size:50px; color:#AD1457;">
         ✨ Kairaé ✨
     </h1>
 
@@ -88,12 +93,12 @@ st.markdown("""
         Your Personal Beauty & Cosmetics Assistant
     </p>
 
-    <p>
+    <p style="color:#880E4F;">
         Discover your beauty. Find your glow. 💗
     </p>
 
 </div>
-""", unsafe_allow_html=True)
+""")
 
 st.divider()
 
@@ -732,9 +737,13 @@ if user_input:
 # 16. FOOTER
 # =========================================================
 
+# =========================================================
+# 16. FOOTER
+# =========================================================
+
 st.markdown("---")
 
-st.markdown("""
+st.html("""
 <div style="text-align:center; padding:15px;">
 
     <h3 style="color:#AD1457;">
@@ -745,9 +754,9 @@ st.markdown("""
         Your beauty. Your confidence. Your glow. 💗
     </p>
 
-    <p style="font-size:13px;">
+    <p style="font-size:13px; color:#880E4F;">
         AI-powered cosmetics and skincare assistant
     </p>
 
 </div>
-""", unsafe_allow_html=True)
+""")
